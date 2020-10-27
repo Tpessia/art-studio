@@ -9,38 +9,70 @@
 
     <style>
         body {
+            --margin: 10vh;
+            --height: calc(100vh - var(--margin) * 2);
+            --width: calc(100vw - var(--margin) * 2);
+            --padding: 25px;
+            --border: 25px;
+
             font-family: 'Roboto';
-            background-color: #222;
+            background-color: #fff;
+            border: var(--border) solid #111;
+            margin: 0;
+        }
+
+        @media (min-width: 600px) {
+            body {
+                --margin: 12.5vh;
+            }
+        }
+
+        @media (min-width: 1000px) {
+            body {
+                --margin: 15vh;
+            }
+        }
+
+        @media (min-width: 1250px) {
+            body {
+                --margin: 17.5vh;
+            }
+        }
+
+        @media (min-width: 1500px) {
+            body {
+                --margin: 20vh;
+            }
         }
 
         .canvas {
-            --width: 80vw;
-            --height: 80vh;
-            --padding: 25px;
-
             box-sizing: border-box;
-            background-color: #272727;
-            width: var(--width);
-            height: var(--height);
-            margin: calc((100vh - var(--height)) / 2) calc((100vw - var(--width)) / 2);
+            background-color: #222;
+            min-height: calc(var(--height) + var(--border) * 2);
+            margin: calc(var(--margin) - var(--border) * 2);
             border-radius: 5px;
             padding: var(--padding);
             display: flex;
             align-items: center;
             justify-content: center;
             flex-wrap: wrap;
+            box-shadow: 0 0 10px 3px #333;
         }
 
         .wrapper {
             text-align: center;
             color: #ffffff;
-            width: calc(var(--height) - var(--padding)* 2);
-            height: calc(var(--height) - var(--padding)* 2);
+            width: var(--height);
+            height: var(--height);
+        }
+
+        .wrapper-mobile {
+            width: var(--width);
+            height: var(--width);
         }
 
         .svg {
             overflow: visible;
-            padding: 25px;
             box-sizing: border-box;
         }
 
@@ -98,5 +130,18 @@
             </svg>
         </div>
     </div>
+
+    <script>
+        calcRatio();
+        window.addEventListener('resize', e => calcRatio());
+
+        function calcRatio() {
+            const ratio = window.innerWidth / window.innerHeight;
+            if (ratio > 1)
+                document.querySelector('.wrapper').classList.remove('wrapper-mobile');
+            else
+                document.querySelector('.wrapper').classList.add('wrapper-mobile');
+        }
+    </script>
 </body>
 </html>
